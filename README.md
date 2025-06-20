@@ -1,43 +1,43 @@
 # Data Platform Project
 
-Проект по созданию дата-платформы на базе Apache Airflow, ClickHouse, Superset и Jupyter.  
-Цель — автоматизация генерации, загрузки и визуализации синтетических данных с привязкой к географическим координатам.
+A project for building a data platform based on Apache Airflow, ClickHouse, Superset, and Jupyter.  
+The goal is to automate the generation, loading, and visualization of synthetic data with geospatial references.
 
 ---
 
-## Компоненты платформы
+## Platform Components
 
-- **Airflow** – оркестрация ETL/ELT процессов
-- **ClickHouse** – аналитическая база данных
-- **Superset** – BI-система для визуализации данных
-- **Jupyter Notebooks** – генерация и загрузка данных
-- **Leaflet.js** – кастомная карта с визуализацией данных
+- **Airflow** – orchestration of ETL/ELT pipelines  
+- **ClickHouse** – analytical database  
+- **Superset** – BI system for data visualization  
+- **Jupyter Notebooks** – data generation and loading  
+- **Leaflet.js** – custom map-based data visualization  
 
 ---
 
-## Структура проекта
+## Project Structure
 
 ```bash
-├── data/                      # CSV-файлы и Jupyter ноутбуки
-│   ├── *_dummy_generator.ipynb     # генераторы синтетических данных
-│   ├── *_to_clickhouse.ipynb       # загрузка данных в ClickHouse
-│   └── *.csv                       # итоговые таблицы
+├── data/                          # CSV files and Jupyter notebooks
+│   ├── *_dummy_generator.ipynb     # synthetic data generators
+│   ├── *_to_clickhouse.ipynb       # loaders to ClickHouse
+│   └── *.csv                       # resulting datasets
 │
-├── superset_map/              # Геокарта с визуализацией данных
+├── superset_map/                  # geospatial data visualization
 │   ├── e_otinsh_dummy.csv
-│   ├── urgent_map.html             # карта с точками и всплывающей аналитикой
-│   └── urgent_map.py               # генератор HTML-карты
+│   ├── urgent_map.html             # interactive map with tooltips
+│   └── urgent_map.py               # map generator script
 │
-├── docker-compose.yml         # Запуск платформы
-├── Dockerfile                 # Airflow
-├── Dockerfile.superset        # Superset
-├── requirements.txt           # Python-зависимости
+├── docker-compose.yml             # platform launcher
+├── Dockerfile                     # for Airflow
+├── Dockerfile.superset            # for Superset
+├── requirements.txt               # Python dependencies
 └── .gitignore
 ```
 
 ---
 
-## Как запустить
+## How to Run
 
 ```bash
 git clone https://github.com/sobebaa/data-platform.git
@@ -47,25 +47,24 @@ docker-compose up --build
 
 ---
 
-## Геокарта
+## Geospatial Map
 
-`urgent_map.html` — это сгенерированная карта на Leaflet.js, визуализирующая синтетические данные.  
-Каждая точка содержит всплывающее описание: регион, возраст, категория, пол, срочность и статус.
+`urgent_map.html` is a Leaflet.js-based generated map that visualizes synthetic data.  
+Each point includes tooltip information: region, age, category, gender, urgency, and status.
 
 ![map preview](./superset_map/urgent_map.html)
 
 ---
 
-## Примеры данных
+## Sample Data
 
-Генераторы создают данные о:
+The notebooks generate datasets related to:
 
-- учениках школ (`kezekte_school_dummy.csv`)
-- eOtinish обращениях (`e_otinish_dummy.csv`)
-- семейных картах (`synthetic_family_cards.csv`)
+- school students (`kezekte_school_dummy.csv`)
+- eOtinish public requests (`e_otinish_dummy.csv`)
+- family data cards (`synthetic_family_cards.csv`)
 
-Сценарии загрузки позволяют сразу перенести данные в ClickHouse и Superset.
-
+Loader notebooks allow seamless data import into ClickHouse and Superset.
 
 ---
 
