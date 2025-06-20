@@ -28,6 +28,11 @@ The goal is to automate the generation, loading, and visualization of synthetic 
 │   ├── urgent_map.html             # interactive map with tooltips
 │   └── urgent_map.py               # map generator script
 │
+├── family_quality_map/            # Visualization of synthetic family data
+│   ├── synthetic_family_cards.csv
+│   ├── family_map.html             # interactive quality map
+│   └── maaap.py                    # map generation script
+│
 ├── docker-compose.yml             # platform launcher
 ├── Dockerfile                     # for Airflow
 ├── Dockerfile.superset            # for Superset
@@ -47,10 +52,12 @@ docker-compose up --build
 
 ---
 
-## Geospatial Map
+## Geospatial Maps
 
-`urgent_map.html` is a Leaflet.js-based generated map that visualizes synthetic data.  
-Each point includes tooltip information: region, age, category, gender, urgency, and status.
+- `urgent_map.html` – interactive map generated with Leaflet.js, visualizing citizen request data
+- `family_map.html` – another interactive map showcasing synthetic family quality metrics
+
+Each point on the map includes tooltip information such as region, age, category, gender, urgency, and status.
 
 ![image](https://github.com/user-attachments/assets/946bd656-edc2-4e18-9590-c786c42656f2)
 
