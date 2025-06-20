@@ -52,7 +52,7 @@ docker-compose up --build
 `urgent_map.html` is a Leaflet.js-based generated map that visualizes synthetic data.  
 Each point includes tooltip information: region, age, category, gender, urgency, and status.
 
-![map preview](./superset_map/urgent_map.html)
+![image](https://github.com/user-attachments/assets/946bd656-edc2-4e18-9590-c786c42656f2)
 
 ---
 
@@ -65,6 +65,9 @@ The notebooks generate datasets related to:
 - family data cards (`synthetic_family_cards.csv`)
 
 Loader notebooks allow seamless data import into ClickHouse and Superset.
+
+![image](https://github.com/user-attachments/assets/1168089c-c5f5-495e-8255-d5654250a6f3)
+
 
 ---
 
