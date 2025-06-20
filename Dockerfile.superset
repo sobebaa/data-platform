@@ -1,0 +1,9 @@
+FROM apache/superset:3.0.0
+
+USER root
+
+RUN apt-get update && apt-get install -y git && apt-get clean
+
+RUN pip install --no-cache-dir clickhouse-connect
+
+USER superset

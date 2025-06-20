@@ -1,0 +1,65 @@
+version: '3.7'
+
+services:
+
+  clickhouse:
+    image: clickhouse/clickhouse-server:23.3
+    container_name: clickhouse
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+    networks:
+      - platform
+      
+  superset:
+    build:
+      context: .
+      dockerfile: Dockerfile.superset
+    container_name: superset
+    environment:
+      - SUPERSET_SECRET_KEY=supersecretkey
+      - ADMIN_USERNAME=admin
+      - ADMIN_FIRST_NAME=Admin
+      - ADMIN_LAST_NAME=User
+      - ADMIN_EMAIL=admin@superset.com
+      - ADMIN_PASSWORD=admin
+    ports:
+      - "8088:8088"
+    volumes:
+      - superset_home:/app/superset_home
+    networks:
+      - platform
+    command: >
+      /bin/bash -c "
+        superset db upgrade &&
+        superset fab create-admin --username admin --firstname Admin --lastname User --email admin@superset.com --password admin &&
+        superset init &&
+        superset run -h 0.0.0.0 -p 8088
+      "
+
+  airflow:
+    image: apache/airflow:2.9.1-python3.10
+    container_name: airflow
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=SequentialExecutor
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+      - AIRFLOW__WEBSERVER__SECRET_KEY=mysecret
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+    ports:
+      - "8080:8080"
+    networks:
+      - platform
+    command: >
+      bash -c "
+        airflow db init &&
+        airflow users create --username admin --firstname Admin --lastname User --role Admin --email admin@airflow.com --password admin &&
+        airflow webserver
+      "
+
+volumes:
+  superset_home:
+
+networks:
+  platform:
+    driver: bridge
